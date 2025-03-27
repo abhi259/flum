@@ -1,11 +1,10 @@
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 
-export function Particles() {
+export function Particles({ particlesCount, particleColor }) {
   const groupRef = useRef();
-  const particleCount = 1000; // Adjust this number to change the amount of particles
+  const particleCount = particlesCount;
 
-  // Create an array of particles with random initial positions
   const particles = Array.from({ length: particleCount }, (_, index) => ({
     id: index,
     initialX: (Math.random() - 0.5) * 2,
@@ -18,7 +17,6 @@ export function Particles() {
     if (groupRef.current) {
       const time = state.clock.getElapsedTime();
 
-      // Update each particle's position
       groupRef.current.children.forEach((particle, index) => {
         const particleData = particles[index];
         particle.position.x =
@@ -38,11 +36,10 @@ export function Particles() {
           key={particle.id}
           position={[particle.initialX, particle.initialY, particle.initialZ]}
         >
-          <sphereGeometry args={[0.01, 16, 16]} />{" "}
-          {/* Increased segments for smoother spheres */}
+          <sphereGeometry args={[0.02, 32, 32]} />
           <meshStandardMaterial
-            color="yellow"
-            emissive="yellow"
+            color={particleColor}
+            emissive={particleColor}
             emissiveIntensity={1}
           />
         </mesh>

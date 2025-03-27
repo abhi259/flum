@@ -1,47 +1,55 @@
 "use client";
-import { CameraControls, Environment } from "@react-three/drei";
-import { Canvas, useThree } from "@react-three/fiber";
-import { useRef } from "react";
-import { Particles } from "./components/Particles";
-import { Bloom, EffectComposer } from "@react-three/postprocessing";
+
+import { useRef, useState } from "react";
+import { HexColorPicker } from "react-colorful";
+import { Scene } from "./components/Scene";
 
 export default function Home() {
-  const cameraControlsRef = useRef();
+  const [particleColor, setParticleColor] = useState("white");
+  const [particlesCount, setParticlesCount] = useState(500);
+  const [showParticles, setShowParticles] = useState(true);
+
+  const handleShowParticles = () => {
+    setShowParticles(!showParticles);
+  };
+
+  const handleParticlesCount = (event) => {
+    const newValue = event.target.value;
+    setParticlesCount(newValue);
+  };
 
   return (
     <div className="relative h-screen w-screen">
-      <Canvas className="absolute top-0 left-0">
-        <ambientLight />
-        <pointLight position={[10, 10, 10]} />
-        <CameraControls ref={cameraControlsRef} />
-
-        <Environment
-          files="/HDR_blue_nebulae-1.hdr"
-          ground={{ height: 50, radius: 100, scale: 200 }}
-          background
-        />
-
-        {/* Box at center */}
-        <mesh>
-          <sphereGeometry args={[0.4, 16, 16]} />
-          <meshStandardMaterial
-            color="yellow"
-            emissive="yellow"
-            emissiveIntensity={1}
+      <div className=" absolute top-0 left-0 bg-red z-50 flex flex-col gap-4 p-10 ">
+        <div>
+          <button
+            className="rounded-3xl p-2 px-8 bg-cyan-700 hover:bg-cyan-600 hover:cursor-pointer hover:scale-110 transform transition duration-300"
+            onClick={handleShowParticles}
+          >
+            Show Paritcles
+          </button>
+        </div>
+        <div className=" text-white font-sans">
+          <label className="block mb-2">
+            ParticlesCount: <span>{particlesCount}</span>
+          </label>
+          <input
+            type="range"
+            min={100}
+            max={1000}
+            step={1}
+            value={particlesCount}
+            onChange={handleParticlesCount}
+            className="w-52 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-cyan-500"
           />
-        </mesh>
-        <EffectComposer>
-          <Bloom
-            intensity={2} // Strength of the bloom effect
-            luminanceThreshold={1} // Only bright areas glow (adjust this)
-            luminanceSmoothing={0.6} // Smoothness of the glow transition
-            height={300} // Resolution of the bloom effect
-          />
-        </EffectComposer>
-
-        {/* Render the Particle component */}
-        <Particles />
-      </Canvas>
+        </div>
+        <HexColorPicker color={particleColor} onChange={setParticleColor} />
+      </div>
+      <Scene
+        showParticles={showParticles}
+        particleColor={particleColor}
+        particlesCount={particlesCount}
+      />
     </div>
   );
 }
