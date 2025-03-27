@@ -3,9 +3,8 @@ import { useRef, useMemo } from "react";
 
 export function Particles({ particlesCount, particleColor, showParticles }) {
   const groupRef = useRef();
-  const currentCountRef = useRef(0); // Store the current particle count
+  const currentCountRef = useRef(0); 
 
-  // Memoize the initial particle data
   const particles = useMemo(
     () =>
       Array.from({ length: particlesCount }, (_, index) => ({
@@ -21,7 +20,7 @@ export function Particles({ particlesCount, particleColor, showParticles }) {
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
 
-    // Gradually change currentCountRef to match target particle count
+
     if (showParticles) {
       currentCountRef.current = Math.min(
         currentCountRef.current + 2,
