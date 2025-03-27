@@ -26,7 +26,7 @@ export default function Home() {
             className="rounded-3xl p-2 px-8 bg-cyan-700 hover:bg-cyan-600 hover:cursor-pointer hover:scale-110 transform transition duration-300"
             onClick={handleShowParticles}
           >
-            Show Paritcles
+            {showParticles ? "Hide Particles" : "Show Particles"}
           </button>
         </div>
         <div className=" text-white font-sans">
