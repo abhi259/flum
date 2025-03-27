@@ -7,7 +7,11 @@ import { Particles } from "./Particles";
 export const Scene = ({ showParticles, particleColor, particlesCount }) => {
   const cameraControlsRef = useRef();
   return (
-    <Canvas className="absolute top-0 left-0">
+    <Canvas
+      camera={{ position: [15, 0, 0], fov: 75 }}
+      target={[0, 0, 0]}
+      className="absolute top-0 left-0"
+    >
       <CameraControls ref={cameraControlsRef} />
 
       <Environment
@@ -19,16 +23,17 @@ export const Scene = ({ showParticles, particleColor, particlesCount }) => {
       <mesh>
         <sphereGeometry args={[0.4, 32, 32]} />
         <meshStandardMaterial
-          color="yellow"
-          emissive="yellow"
+          color={particleColor}
+          emissive={particleColor}
           emissiveIntensity={1}
         />
       </mesh>
+
       <EffectComposer>
         <Bloom
           intensity={1}
-          luminanceThreshold={0.7}
-          luminanceSmoothing={0.6}
+          luminanceThreshold={0.1}
+          luminanceSmoothing={0.1}
           height={300}
         />
       </EffectComposer>

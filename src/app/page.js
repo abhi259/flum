@@ -5,9 +5,11 @@ import { HexColorPicker } from "react-colorful";
 import { Scene } from "./components/Scene";
 
 export default function Home() {
-  const [particleColor, setParticleColor] = useState("white");
+  const [particleColor, setParticleColor] = useState("#ffd5a4");
   const [particlesCount, setParticlesCount] = useState(500);
   const [showParticles, setShowParticles] = useState(true);
+
+  console.log(particleColor);
 
   const handleShowParticles = () => {
     setShowParticles(!showParticles);
