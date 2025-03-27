@@ -38,12 +38,13 @@ export const Scene = ({ showParticles, particleColor, particlesCount }) => {
         />
       </EffectComposer>
 
-      {showParticles && (
+      {/* {showParticles && ( */}
         <Particles
           particlesCount={particlesCount}
           particleColor={particleColor}
+          showParticles={showParticles}
         />
-      )}
+      {/* )} */}
     </Canvas>
   );
 };

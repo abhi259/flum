@@ -9,8 +9,6 @@ export default function Home() {
   const [particlesCount, setParticlesCount] = useState(500);
   const [showParticles, setShowParticles] = useState(true);
 
-  console.log(particleColor);
-
   const handleShowParticles = () => {
     setShowParticles(!showParticles);
   };
